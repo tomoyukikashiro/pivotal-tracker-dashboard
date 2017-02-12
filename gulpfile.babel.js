@@ -35,6 +35,7 @@ import {output as pagespeed} from 'psi';
 import pkg from './package.json';
 import browserify from 'browserify';
 import babelify from 'babelify';
+import ngAnnotate from 'browserify-ngannotate';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
 
@@ -108,13 +109,13 @@ gulp.task('styles', () => {
 gulp.task('scripts', () => {
   const b = browserify({
     entries: './app/scripts/app.js',
-    transform: [babelify]
+    transform: [babelify, ngAnnotate],
+    debug: true
   });
   return b.bundle()
     .pipe(source('app.min.js'))
     .pipe(buffer())
     .pipe($.sourcemaps.init({loadMaps: true}))
-    .pipe($.ngAnnotate())
     .pipe($.uglify())
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('.tmp/scripts'))
