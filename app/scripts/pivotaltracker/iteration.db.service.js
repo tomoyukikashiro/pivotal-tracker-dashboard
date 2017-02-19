@@ -6,4 +6,8 @@ export default class PtIterationDbService extends DbBase {
     'ngInject';
     super(LovefieldService.schemaBuilder, 'user', PT_ITERATION_SERVICE_SCHEMA);
   }
+  createTable() {
+    let table = super.createTable();
+    table.addPrimaryKey([PT_ITERATION_SERVICE_SCHEMA.number]);
+  }
 }

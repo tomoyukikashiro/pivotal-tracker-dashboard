@@ -1,17 +1,17 @@
 import ApiBase from './api_base';
 
-/* eslint-disable camelcase */
+/* eslint-disable camelcase, key-spacing, no-multi-spaces */
 export const PT_USER_SERVICE_SCHEMA = {
-  id: lf.Type.INTEGER,
-  name: lf.Type.STRING,
-  initial: lf.Type.STRING,
-  username: lf.Type.STRING,
-  time_zone: lf.Type.DATE_TIME,
-  api_token: lf.Type.STRING,
-  email: lf.Type.STRING,
-  kind: lf.Type.STRING
+  ID:        {NAME: 'id',        TYPE: lf.Type.INTEGER},
+  NAME:      {NAME: 'name',      TYPE: lf.Type.STRING},
+  INITIAL:   {NAME: 'initial',   TYPE: lf.Type.STRING},
+  USERNAME:  {NAME: 'username',  TYPE: lf.Type.STRING},
+  TIME_ZONE: {NAME: 'time_zone', TYPE: lf.Type.DATE_TIME},
+  API_TOKEN: {NAME: 'api_token', TYPE: lf.Type.STRING},
+  EMAIL:     {NAME: 'email',     TYPE: lf.Type.STRING},
+  KIND:      {NAME: 'kind',      TYPE: lf.Type.STRING}
 };
-/* eslint-enable camelcase */
+/* eslint-enable camelcase, key-spacing, no-multi-spaces */
 
 export class PtUserApiService extends ApiBase {
 

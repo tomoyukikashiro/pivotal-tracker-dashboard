@@ -1,16 +1,18 @@
 export default class DbBase {
-  constructor(tableName, schemas) {
+  constructor(dbService, tableName, schemas) {
+    this.dbService = dbService;
     this.tableName = tableName;
     this.schemas = schemas;
   }
 
-  createTable(schemaBuilder) {
-    let sb = schemaBuilder.createTable(this.tableName);
-    for (let name in this.schemas) {
-      if (this.schemas.hasOwnProperty(name)) {
-        sb.addColumn(name, this.schemas[name]);
+  createTable() {
+    let table = this.dbService.schemaBuilder.createTable(this.tableName);
+    for (let schema in this.schemas) {
+      if (this.schemas.hasOwnProperty(schema)) {
+        table.addColumn(schema.NAME, schema[schema.TYPE]);
       }
     }
+    return table;
   }
 
 }

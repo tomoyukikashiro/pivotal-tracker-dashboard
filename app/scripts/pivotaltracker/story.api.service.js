@@ -1,27 +1,27 @@
 import ApiBase from './api_base';
 
-/* eslint-disable camelcase */
+/* eslint-disable camelcase, key-spacing, no-multi-spaces */
 export const PT_STORY_SERVICE_SCHEMA = {
-  id: lf.Type.INTEGER,
-  project_id: lf.Type.INTEGER,
-  description: lf.Type.STRING,
-  story_type: lf.Type.STRING,
-  current_state: lf.Type.STRING,
-  estimate: lf.Type.INTEGER,
-  accepted_at: lf.Type.DATE_TIME,
-  deadline: lf.Type.DATE_TIME,
-  requested_by_id: lf.Type.INTEGER,
-  owner_ids: lf.Type.OBJECT,
-  label_ids: lf.Type.OBJECT,
-  follower_ids: lf.Type.OBJECT,
-  comment_ids: lf.Type.OBJECT,
-  created_at: lf.Type.DATE_TIME,
-  updated_at: lf.Type.DATE_TIME,
-  before_id: lf.Type.INTEGER,
-  after_id: lf.Type.INTEGER,
-  url: lf.Type.STRING
+  ID:              {NAME: 'id',              TYPE: lf.Type.INTEGER},
+  PROJECT_ID:      {NAME: 'project_id',      TYPE: lf.Type.INTEGER},
+  DESCRIPTION:     {NAME: 'description',     TYPE: lf.Type.STRING},
+  STORY_TYPE:      {NAME: 'story_type',      TYPE: lf.Type.STRING},
+  CURRENT_STATE:   {NAME: 'current_state',   TYPE: lf.Type.STRING},
+  ESTIMATE:        {NAME: 'estimate',        TYPE: lf.Type.INTEGER},
+  ACCEPTED_AT:     {NAME: 'accepted_at',     TYPE: lf.Type.DATE_TIME},
+  DEADLINE:        {NAME: 'deadline',        TYPE: lf.Type.DATE_TIME},
+  REQUESTED_BY_ID: {NAME: 'requested_by_id', TYPE: lf.Type.INTEGER},
+  OWNER_IDS:       {NAME: 'owner_ids',       TYPE: lf.Type.OBJECT},
+  LABEL_IDS:       {NAME: 'label_ids',       TYPE: lf.Type.OBJECT},
+  FOLLOWER_IDS:    {NAME: 'follower_ids',    TYPE: lf.Type.OBJECT},
+  COMMENT_IDS:     {NAME: 'comment_ids',     TYPE: lf.Type.OBJECT},
+  CREATED_AT:      {NAME: 'created_at',      TYPE: lf.Type.DATE_TIME},
+  UPDATED_AT:      {NAME: 'updated_at',      TYPE: lf.Type.DATE_TIME},
+  BEFORE_ID:       {NAME: 'before_id',       TYPE: lf.Type.INTEGER},
+  AFTER_ID:        {NAME: 'after_id',        TYPE: lf.Type.INTEGER},
+  URL:             {NAME: 'url',             TYPE: lf.Type.STRING}
 };
-/* eslint-enable camelcase */
+/* eslint-enable camelcase, key-spacing, no-multi-spaces */
 
 export class PtStoryApiService extends ApiBase {
   constructor($resource) {
