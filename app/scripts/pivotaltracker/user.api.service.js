@@ -13,25 +13,21 @@ const PtUserServiceSchema = {
 };
 /* eslint-enable camelcase */
 
-export default class PtUserService extends ApiBase {
+export default class PtUserApiService extends ApiBase {
 
-  constructor($resource, $log) {
+  constructor($resource) {
     'ngInject';
     super('/me');
+    this.schema = PtUserServiceSchema;
     this._$resource = $resource;
-    this.$log = $log;
   }
 
   get(token) {
-    if (token) {
+    if (!this.$resource) {
       let actions = {get: {method: 'GET', headers: {'X-TrackerToken': token}}};
       this.$resource = this._$resource(this.apiUrl, {}, actions);
     }
     return this.$resource.get().$promise;
-  }
-
-  static get schema() {
-    return PtUserServiceSchema;
   }
 }
 

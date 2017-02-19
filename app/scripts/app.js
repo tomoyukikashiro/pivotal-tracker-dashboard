@@ -25,8 +25,4 @@ angular
 
       // return db.insert.into(table).values([row]).exec();
     });
-  })
-  .run(ptUserService => {
-    'ngInject';
-    ptUserService.get();
   });
