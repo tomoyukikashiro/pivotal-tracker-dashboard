@@ -1,7 +1,7 @@
 import ApiBase from './api_base';
 
 /* eslint-disable camelcase */
-const PtProjectServiceSchema = {
+export const PT_PROJECT_SERVICE_SCHEMA = {
   id: lf.Type.INTEGER,
   name: lf.Type.STRING,
   status: lf.Type.STRING,
@@ -38,11 +38,11 @@ const PtProjectServiceSchema = {
 };
 /* eslint-anable camelcase */
 
-export default class PtProjectApiService extends ApiBase {
+export class PtProjectApiService extends ApiBase {
   constructor($resource) {
     'ngInject';
     super('/project');
-    this.schema = PtProjectServiceSchema;
+    this.schema = PT_PROJECT_SERVICE_SCHEMA;
     this._$resource = $resource;
   }
 

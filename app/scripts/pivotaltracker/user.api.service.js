@@ -1,7 +1,7 @@
 import ApiBase from './api_base';
 
 /* eslint-disable camelcase */
-const PtUserServiceSchema = {
+export const PT_USER_SERVICE_SCHEMA = {
   id: lf.Type.INTEGER,
   name: lf.Type.STRING,
   initial: lf.Type.STRING,
@@ -13,12 +13,12 @@ const PtUserServiceSchema = {
 };
 /* eslint-enable camelcase */
 
-export default class PtUserApiService extends ApiBase {
+export class PtUserApiService extends ApiBase {
 
   constructor($resource) {
     'ngInject';
     super('/me');
-    this.schema = PtUserServiceSchema;
+    this.schema = PT_USER_SERVICE_SCHEMA;
     this._$resource = $resource;
   }
 
