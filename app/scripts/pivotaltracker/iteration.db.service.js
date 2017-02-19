@@ -2,12 +2,8 @@ import DbBase from './db_base';
 import {PT_ITERATION_SERVICE_SCHEMA} from './iteration.api.service';
 
 export default class PtIterationDbService extends DbBase {
-  constructor(LovefieldService) {
+  constructor(Lovefield) {
     'ngInject';
-    super(LovefieldService.schemaBuilder, 'user', PT_ITERATION_SERVICE_SCHEMA);
-  }
-  createTable() {
-    let table = super.createTable();
-    table.addPrimaryKey([PT_ITERATION_SERVICE_SCHEMA.number]);
+    super(Lovefield, 'iteration', PT_ITERATION_SERVICE_SCHEMA);
   }
 }

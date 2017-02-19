@@ -10,19 +10,12 @@ angular
   .constant('appConstants', constants)
   .config((appConstants, LovefieldProvider) => {
     'ngInject';
-    let schemaBuilder = LovefieldProvider.create(appConstants.DB_NAME, appConstants.DB_VERSION);
-    schemaBuilder.createTable('first')
-      .addColumn('id', LovefieldProvider.Types.INTEGER)
-      .addColumn('name', LovefieldProvider.Types.STRING)
-      .addPrimaryKey(['id']);
-
-    schemaBuilder.connect().then(() => {
-      // let table = db.getSchema().table('first');
-      // let row = table.createRow({
-      //   id: 1,
-      //   name: 'blabla'
-      // });
-
-      // return db.insert.into(table).values([row]).exec();
-    });
+    LovefieldProvider.create(appConstants.DB_NAME, appConstants.DB_VERSION);
+  })
+  .run((ptUserDbService, ptProjectDbService, ptStoryDbService, ptIterationDbService) => {
+    'ngInject';
+    ptUserDbService.createTable();
+    ptProjectDbService.createTable();
+    ptStoryDbService.createTable();
+    ptIterationDbService.createTable();
   });

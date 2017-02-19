@@ -7,9 +7,9 @@ export default class DbBase {
 
   createTable() {
     let table = this.dbService.schemaBuilder.createTable(this.tableName);
-    for (let schema in this.schemas) {
-      if (this.schemas.hasOwnProperty(schema)) {
-        table.addColumn(schema.NAME, schema[schema.TYPE]);
+    for (let key in this.schemas) {
+      if (this.schemas.hasOwnProperty(key)) {
+        table.addColumn(this.schemas[key].NAME, this.schemas[key].TYPE);
       }
     }
     return table;

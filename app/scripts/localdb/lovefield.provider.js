@@ -1,12 +1,18 @@
-import LoveFieldService from './lovefield.service';
-
-export default class LovefieldProvider {
-  create(name, version) {
+class Lovefield {
+  constructor(schemaBuilder) {
+    this.schemaBuilder = schemaBuilder;
     this.Types = lf.Type;
-    this.schemaBuilder = lf.schema.create(name, version);
-    return this.schemaBuilder;
   }
-  $get() {
-    return new LoveFieldService(this.schemaBuilder);
-  }
+}
+
+export default function LovefieldProvider() {
+  let schemaBuilder;
+  return {
+    create(name, version) {
+      schemaBuilder = lf.schema.create(name, version);
+    },
+    $get: function() {
+      return new Lovefield(schemaBuilder);
+    }
+  };
 }
