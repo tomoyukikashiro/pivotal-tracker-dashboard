@@ -44,7 +44,7 @@ const reload = browserSync.reload;
 
 // Lint JavaScript
 gulp.task('lint', () =>
-  gulp.src(['app/scripts/**/*.js','!node_modules/**'])
+  gulp.src(['app/scripts/**/*.js', '!node_modules/**'])
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.if(!browserSync.active, $.eslint.failAfterError()))
@@ -120,7 +120,6 @@ gulp.task('scripts', () => {
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('.tmp/scripts'))
     .pipe(gulp.dest('dist/scripts'));
-
 });
 
 // Scan your HTML for assets & optimize them
@@ -188,6 +187,8 @@ gulp.task('serve:dist', ['default'], () =>
     port: 3001
   })
 );
+
+gulp.task('vendors', ['scripts:vendor', 'styles:vendor']);
 
 // Build production files, the default task
 gulp.task('default', ['clean'], cb =>

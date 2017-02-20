@@ -2,11 +2,11 @@ import ApiBase from './api_base';
 
 /* eslint-disable camelcase, key-spacing, no-multi-spaces */
 export const PT_USER_SERVICE_SCHEMA = {
-  ID:        {NAME: 'id',        TYPE: lf.Type.INTEGER},
+  ID:        {NAME: 'id',        TYPE: lf.Type.INTEGER, PRIMARY: true},
   NAME:      {NAME: 'name',      TYPE: lf.Type.STRING},
-  INITIAL:   {NAME: 'initial',   TYPE: lf.Type.STRING},
+  INITIALS:  {NAME: 'initials',  TYPE: lf.Type.STRING},
   USERNAME:  {NAME: 'username',  TYPE: lf.Type.STRING},
-  TIME_ZONE: {NAME: 'time_zone', TYPE: lf.Type.DATE_TIME},
+  TIME_ZONE: {NAME: 'time_zone', TYPE: lf.Type.OBJECT},
   API_TOKEN: {NAME: 'api_token', TYPE: lf.Type.STRING},
   EMAIL:     {NAME: 'email',     TYPE: lf.Type.STRING},
   KIND:      {NAME: 'kind',      TYPE: lf.Type.STRING}

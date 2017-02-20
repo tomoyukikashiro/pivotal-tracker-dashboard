@@ -2,7 +2,7 @@ import ApiBase from './api_base';
 
 /* eslint-disable camelcase, key-spacing, no-multi-spaces */
 export const PT_STORY_SERVICE_SCHEMA = {
-  ID:              {NAME: 'id',              TYPE: lf.Type.INTEGER},
+  ID:              {NAME: 'id',              TYPE: lf.Type.INTEGER, PRIMARY: true},
   PROJECT_ID:      {NAME: 'project_id',      TYPE: lf.Type.INTEGER},
   DESCRIPTION:     {NAME: 'description',     TYPE: lf.Type.STRING},
   STORY_TYPE:      {NAME: 'story_type',      TYPE: lf.Type.STRING},

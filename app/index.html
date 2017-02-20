@@ -36,15 +36,69 @@
     <link rel="canonical" href="http://www.example.com/">
     -->
 
-    <!-- Your styles -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
     <link rel="stylesheet" href="styles/main.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular-resource.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-resource.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-aria.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-messages.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.1/angular-moment.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
+
   </head>
   <body>
+    <div layout="column" style="min-height:100vh;" ng-cloak>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.12/lovefield.js"></script>
+      <section layout="row" flex>
+
+        <md-sidenav
+          class="md-sidenav-left"
+          md-component-id="left"
+          md-is-locked-open="$mdMedia('gt-md')"
+          md-whiteframe="4">
+
+          <md-toolbar class="md-theme-indigo">
+            <h1 class="md-toolbar-tools">Sidenav Left</h1>
+          </md-toolbar>
+          <md-content layout-padding>
+            nav content
+          </md-content>
+
+        </md-sidenav>
+
+        <md-content flex layout-padding>
+          <div layout="column" layout-align="center" ng-controller="testController">
+            <form ng-submit="submitUser()">
+              <md-input-container>
+                <label>API TOKEN</label>
+                <input ng-model="token">
+              </md-input-container>
+              <md-button type="submit" class="md-raised">next</md-button>
+            </form>
+            <form ng-submit="submitProject()" ng-if="projects">
+              <md-input-container>
+                <label>Select Project</label>
+                <md-select ng-model="targetProject">
+                  <md-option ng-repeat="project in projects" ng-value="project.project_id">
+                    {{project.project_name}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-button type="submit" class="md-raised">next</md-button>
+            </form>
+          </div>
+        </md-content>
+
+      </section>
+
+    </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.12/lovefield.js"></script>
     <script src="scripts/app.min.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

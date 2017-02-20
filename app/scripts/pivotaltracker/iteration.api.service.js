@@ -2,7 +2,7 @@ import ApiBase from './api_base';
 
 /* eslint-disable camelcase, key-spacing, no-multi-spaces */
 export const PT_ITERATION_SERVICE_SCHEMA = {
-  NUMBER:           {NAME: 'number',           TYPE: lf.Type.INTEGER},
+  NUMBER:           {NAME: 'number',           TYPE: lf.Type.INTEGER, PRIMARY: true},
   PROJECT_ID:       {NAME: 'project_id',       TYPE: lf.Type.INTEGER},
   LENGTH:           {NAME: 'length',           TYPE: lf.Type.INTEGER},
   TEAM_STRENGTH:    {NAME: 'team_strength',    TYPE: lf.Type.INTEGER},

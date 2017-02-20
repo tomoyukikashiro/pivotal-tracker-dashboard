@@ -56,12 +56,17 @@
       "lf": true,
       "ga": true
     },
-    "rules" : {
+    "rules": {
       "no-use-before-define": 0,
-      "require-jsdoc": [0],
-      "max-len": [0]
+      "require-jsdoc": [
+        0
+      ],
+      "max-len": [
+        0
+      ]
     },
     "extends": "google"
   },
-  "dependencies": {}
+  "dependencies": {
+  }
 }

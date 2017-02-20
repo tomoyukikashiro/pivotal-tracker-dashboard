@@ -2,9 +2,9 @@ import ApiBase from './api_base';
 
 /* eslint-disable camelcase, key-spacing, no-multi-spaces */
 export const PT_PROJECT_SERVICE_SCHEMA = {
-  ID:                               {NAME: 'id',                                TYPE: lf.Type.INTEGER},
+  ID:                               {NAME: 'id',                                TYPE: lf.Type.INTEGER, PRIMARY: true},
   NAME:                             {NAME: 'name',                              TYPE: lf.Type.STRING},
-  STATUS:                           {NAME: 'status',                            TYPE: lf.Type.STRING},
+  // STATUS:                           {NAME: 'status',                            TYPE: lf.Type.STRING},
   VERSION:                          {NAME: 'version',                           TYPE: lf.Type.INTEGER},
   ITERATION_LENGTH:                 {NAME: 'iteration_length',                  TYPE: lf.Type.INTEGER},
   WEEK_START_DAY:                   {NAME: 'week_start_day',                    TYPE: lf.Type.STRING},
@@ -14,19 +14,19 @@ export const PT_PROJECT_SERVICE_SCHEMA = {
   AUTOMATIC_PLANNING:               {NAME: 'automatic_planning',                TYPE: lf.Type.BOOLEAN},
   ENABLE_TASKS:                     {NAME: 'enable_tasks',                      TYPE: lf.Type.BOOLEAN},
   START_DATE:                       {NAME: 'start_date',                        TYPE: lf.Type.DATE_TIME},
-  TIME_ZONE:                        {NAME: 'time_zone',                         TYPE: lf.Type.STRING},
+  TIME_ZONE:                        {NAME: 'time_zone',                         TYPE: lf.Type.OBJECT},
   VELOCITY_AVERAGED_OVER:           {NAME: 'velocity_averaged_over',            TYPE: lf.Type.INTEGER},
-  SHOWN_ITERATIONS_START_TIME:      {NAME: 'shown_iterations_start_time',       TYPE: lf.Type.DATE_TIME},
+  // SHOWN_ITERATIONS_START_TIME:      {NAME: 'shown_iterations_start_time',       TYPE: lf.Type.DATE_TIME},
   START_TIME:                       {NAME: 'start_time',                        TYPE: lf.Type.DATE_TIME},
   NUMBER_OF_DONE_ITERATIONS_TO_SHOW:{NAME: 'number_of_done_iterations_to_show', TYPE: lf.Type.INTEGER},
-  DESCRIPTION:                      {NAME: 'description',                       TYPE: lf.Type.STRING},
+  // DESCRIPTION:                      {NAME: 'description',                       TYPE: lf.Type.STRING},
   INITIAL_VELOCITY:                 {NAME: 'initial_velocity',                  TYPE: lf.Type.INTEGER},
   PROJECT_TYPE:                     {NAME: 'project_type',                      TYPE: lf.Type.STRING},
   PUBLIC:                           {NAME: 'public',                            TYPE: lf.Type.BOOLEAN},
   CURRENT_ITERATION_NUMBER:         {NAME: 'current_iteration_number',          TYPE: lf.Type.INTEGER},
-  CURRENT_STANDARD_DEVIATION:       {NAME: 'current_standard_deviation',        TYPE: lf.Type.INTEGER},
-  CURRENT_VELOCITY:                 {NAME: 'current_velocity',                  TYPE: lf.Type.INTEGER},
-  CURRENT_VOLATILITY:               {NAME: 'current_volatility',                TYPE: lf.Type.INTEGER},
+  // CURRENT_STANDARD_DEVIATION:       {NAME: 'current_standard_deviation',        TYPE: lf.Type.INTEGER},
+  // CURRENT_VELOCITY:                 {NAME: 'current_velocity',                  TYPE: lf.Type.INTEGER},
+  // CURRENT_VOLATILITY:               {NAME: 'current_volatility',                TYPE: lf.Type.INTEGER},
   ACCOUNT_ID:                       {NAME: 'account_id',                        TYPE: lf.Type.INTEGER},
   STORY_IDS:                        {NAME: 'story_ids',                         TYPE: lf.Type.OBJECT},
   EPIC_IDS:                         {NAME: 'epic_ids',                          TYPE: lf.Type.OBJECT},
@@ -41,7 +41,7 @@ export const PT_PROJECT_SERVICE_SCHEMA = {
 export class PtProjectApiService extends ApiBase {
   constructor($resource) {
     'ngInject';
-    super('/project');
+    super('/projects');
     this.schema = PT_PROJECT_SERVICE_SCHEMA;
     this._$resource = $resource;
   }
