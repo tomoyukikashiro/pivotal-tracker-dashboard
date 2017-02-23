@@ -6,13 +6,13 @@ export const PT_ITERATION_SERVICE_SCHEMA = {
   PROJECT_ID:       {NAME: 'project_id',       TYPE: lf.Type.INTEGER},
   LENGTH:           {NAME: 'length',           TYPE: lf.Type.INTEGER},
   TEAM_STRENGTH:    {NAME: 'team_strength',    TYPE: lf.Type.INTEGER},
-  STORY_IDS:        {NAME: 'story_ids',        TYPE: lf.Type.OBJECT},
+  // STORY_IDS:        {NAME: 'story_ids',        TYPE: lf.Type.OBJECT},
   START:            {NAME: 'start',            TYPE: lf.Type.DATE_TIME},
-  FINISH:           {NAME: 'finish',           TYPE: lf.Type.DATE_TIME},
-  VELOCITY:         {NAME: 'velocity',         TYPE: lf.Type.INTEGER},
-  POINTS:           {NAME: 'points',           TYPE: lf.Type.INTEGER},
-  ACCEPTED_POINTS:  {NAME: 'accepted_points',  TYPE: lf.Type.INTEGER},
-  EFFECTIVE_POINTS: {NAME: 'effective_points', TYPE: lf.Type.INTEGER}
+  FINISH:           {NAME: 'finish',           TYPE: lf.Type.DATE_TIME}
+  // VELOCITY:         {NAME: 'velocity',         TYPE: lf.Type.INTEGER},
+  // POINTS:           {NAME: 'points',           TYPE: lf.Type.INTEGER},
+  // ACCEPTED_POINTS:  {NAME: 'accepted_points',  TYPE: lf.Type.INTEGER},
+  // EFFECTIVE_POINTS: {NAME: 'effective_points', TYPE: lf.Type.INTEGER}
 };
 /* eslint-enable camelcase key-spacing, no-multi-spaces */
 
@@ -30,5 +30,17 @@ export class PtIterationApiService extends ApiBase {
       this.$resource = this._$resource(this.apiUrl, {projectId: '@projectId'}, actions);
     }
     return this.$resource.get(param).$promise;
+  }
+
+  getAll(token, project, iterations) {
+    iterations = iterations || [];
+    return this.get(token, {projectId: project.id, limit: 100, offset: iterations.length})
+      .then(_iteration => {
+        iterations = iterations.concat(_iteration);
+        if (iterations.length < project.current_iteration_number) {
+          return this.getAll(token, project, iterations);
+        }
+        return iterations;
+      });
   }
 }
