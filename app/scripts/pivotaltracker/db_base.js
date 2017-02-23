@@ -12,7 +12,7 @@ export default class DbBase {
   }
 
   getTable() {
-    return this.dbService.getDb()
+    return this.getDb()
       .then(db => {
         return db.getSchema().table(this.tableName);
       })
