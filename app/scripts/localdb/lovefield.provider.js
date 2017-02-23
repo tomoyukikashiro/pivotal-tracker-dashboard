@@ -11,16 +11,18 @@ class Lovefield {
       return this.$q.resolve(this.connection);
     }
     if (!this.dbPromise) {
-      this.dbPromise = this.schemaBuilder.connect()
+      this.dbPromise = this.$q.defer();
+      this.schemaBuilder.connect()
         .then(connection => {
           this.connection = connection;
-          return this.connection;
+          return this.dbPromise.resolve(this.connection);
         })
         .catch(error => {
           console.error(error);
+          return this.dbPromise.reject(error);
         });
     }
-    return this.dbPromise;
+    return this.dbPromise.promise;
   }
 }
 
