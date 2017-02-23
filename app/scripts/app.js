@@ -15,11 +15,11 @@ angular
     LovefieldProvider.create(appConstants.DB_NAME, appConstants.DB_VERSION);
   })
   .controller('testController', function(
-    $scope, $q, ptUserApiService, ptUserDbService, ptProjectApiService, ptProjectDbService) {
+    $scope, $q, ptUserApiService, ptUserDbService, ptProjectApiService, ptProjectDbService, ptIterationApiService, ptIterationDbService, ptStoryApiService, ptStoryDbService) {
     'ngInject';
     $scope.token = undefined;
     $scope.projects = undefined;
-    $scope.targetProject = undefined;
+    $scope.target = null;
     $scope.submitUser = function() {
       // call user api
       ptUserApiService.get($scope.token).then(user => {
@@ -32,11 +32,17 @@ angular
       });
     };
     $scope.submitProject = function() {
-      ptProjectApiService.get($scope.token).then(project => {
-        ptProjectDbService.insertOrReplace(project)
-          .then(_project => {
-            console.log(project);
-            console.log(_project);
+      ptProjectApiService.get($scope.token, {projectId: $scope.targetProject}).then(projects => {
+        ptProjectDbService.insertOrReplace(projects)
+          .then(() => {
+            ptIterationApiService.getAll($scope.token, projects[0])
+              .then(iterations => {
+                ptIterationDbService.insertOrReplace(iterations);
+              });
+            ptStoryApiService.getAll($scope.token, projects[0])
+              .then(stories => {
+                ptStoryDbService.insertOrReplace(stories);
+              });
           });
       });
     };

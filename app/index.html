@@ -83,8 +83,8 @@
             <form ng-submit="submitProject()" ng-if="projects">
               <md-input-container>
                 <label>Select Project</label>
-                <md-select ng-model="targetProject">
-                  <md-option ng-repeat="project in projects" ng-value="project.project_id">
+                <md-select ng-model="target">
+                  <md-option ng-value="project" ng-repeat="project in projects">
                     {{project.project_name}}
                   </md-option>
                 </md-select>

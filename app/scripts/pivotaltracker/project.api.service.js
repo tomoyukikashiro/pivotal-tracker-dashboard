@@ -41,7 +41,7 @@ export const PT_PROJECT_SERVICE_SCHEMA = {
 export class PtProjectApiService extends ApiBase {
   constructor($resource) {
     'ngInject';
-    super('/projects');
+    super('/projects/:projectId');
     this.schema = PT_PROJECT_SERVICE_SCHEMA;
     this._$resource = $resource;
   }
@@ -49,7 +49,7 @@ export class PtProjectApiService extends ApiBase {
   get(token, param) {
     if (!this.$resource) {
       let actions = {get: {method: 'GET', isArray: true, headers: {'X-TrackerToken': token}}};
-      this.$resource = this._$resource(this.apiUrl, {}, actions);
+      this.$resource = this._$resource(this.apiUrl, {projectId: '@projectId'}, actions);
     }
     return this.$resource.get(param).$promise;
   }

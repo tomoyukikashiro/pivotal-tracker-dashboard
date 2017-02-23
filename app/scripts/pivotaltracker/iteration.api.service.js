@@ -17,11 +17,11 @@ export const PT_ITERATION_SERVICE_SCHEMA = {
 /* eslint-enable camelcase key-spacing, no-multi-spaces */
 
 export class PtIterationApiService extends ApiBase {
-  constructor($resouce) {
+  constructor($resource) {
     'ngInject';
-    super('/projects/{projectId}/iterations');
+    super('/projects/:projectId/iterations');
     this.schema = PT_ITERATION_SERVICE_SCHEMA;
-    this._$resource = $resouce;
+    this._$resource = $resource;
   }
 
   get(token, param) {

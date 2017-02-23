@@ -38,4 +38,17 @@ export class PtStoryApiService extends ApiBase {
     }
     return this.$resource.get(param).$promise;
   }
+
+  getAll(token, project, stories) {
+    stories = stories || [];
+    return this.get(token, {projectId: project.id, limit: 100, offset: stories.length})
+      .then(_stories => {
+        stories = stories.concat(_stories);
+        if (_stories.length !== 0) {
+          return this.getAll(token, project, stories);
+        }
+        return stories;
+      });
+  }
+
 }
