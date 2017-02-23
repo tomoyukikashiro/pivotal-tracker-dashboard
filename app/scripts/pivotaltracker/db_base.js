@@ -71,6 +71,7 @@ export default class DbBase {
 
   createTable() {
     let primaryKeys = [];
+    let nullableKeys = [];
     let table = this.dbService.schemaBuilder.createTable(this.tableName);
     for (let key in this.schemas) {
       if (this.schemas.hasOwnProperty(key)) {
@@ -78,10 +79,14 @@ export default class DbBase {
         if (this.schemas[key].PRIMARY) {
           primaryKeys.push(this.schemas[key].NAME);
         }
+        if (this.schemas[key].NULLABLE) {
+          nullableKeys.push(this.schemas[key].NAME);
+        }
       }
     }
-    table.addPrimaryKey(primaryKeys);
-    return table;
+    return table
+      .addPrimaryKey(primaryKeys)
+      .addNullable(nullableKeys);
   }
 
 }
