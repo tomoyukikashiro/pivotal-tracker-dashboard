@@ -15,17 +15,18 @@ angular
     LovefieldProvider.create(appConstants.DB_NAME, appConstants.DB_VERSION);
   })
   .controller('testController', function(
-    $scope, $q, ptUserApiService, ptUserDbService, ptProjectApiService, ptProjectDbService, ptIterationApiService, ptIterationDbService, ptStoryApiService, ptStoryDbService) {
+    $scope, $q, ptUserApiService, ptUserDbService, ptProjectApiService, ptProjectDbService, ptIterationApiService, ptIterationDbService, ptStoryApiService, ptStoryDbService, ptMeApiService) {
     'ngInject';
     $scope.token = undefined;
     $scope.projects = undefined;
     $scope.target = null;
     $scope.submitUser = function() {
       // call user api
-      ptUserApiService.get($scope.token).then(user => {
+      ptMeApiService.get($scope.token).then(user => {
         ptUserDbService.insertOrReplace(user)
           .then(() => {
             $scope.projects = user.projects;
+            $scope.user = user;
           });
       }).catch(e => {
         console.log(e);
@@ -42,6 +43,19 @@ angular
             ptStoryApiService.getAll($scope.token, projects[0])
               .then(stories => {
                 ptStoryDbService.insertOrReplace(stories);
+              });
+            ptUserApiService.get($scope.token, {projectId: projects[0].id})
+              .then(users => {
+                let meIndex;
+                users.forEach((user, i) => {
+                  if ($scope.user.id === user.id) {
+                    meIndex = i;
+                  }
+                });
+                if (meIndex) {
+                  users.splice(meIndex, 1);
+                }
+                ptUserDbService.insertOrReplace(users);
               });
           });
       });
