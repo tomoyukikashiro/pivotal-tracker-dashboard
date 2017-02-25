@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
     <title>Web Starter Kit</title>
 
     <!-- Disable tap highlight on IE -->
@@ -40,6 +41,7 @@
     <link rel="stylesheet" href="styles/main.css">
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-route.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-resource.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-animate.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-aria.min.js"></script>
@@ -52,53 +54,10 @@
 
   </head>
   <body>
-    <div layout="column" style="min-height:100vh;" ng-cloak>
 
-      <section layout="row" flex>
+    <ng-view flex layout="column"></ng-view>
 
-        <md-sidenav
-          class="md-sidenav-left"
-          md-component-id="left"
-          md-is-locked-open="$mdMedia('gt-md')"
-          md-whiteframe="4">
-
-          <md-toolbar class="md-theme-indigo">
-            <h1 class="md-toolbar-tools">Sidenav Left</h1>
-          </md-toolbar>
-          <md-content layout-padding>
-            nav content
-          </md-content>
-
-        </md-sidenav>
-
-        <md-content flex layout-padding>
-          <div layout="column" layout-align="center" ng-controller="testController">
-            <form ng-submit="submitUser()">
-              <md-input-container>
-                <label>API TOKEN</label>
-                <input ng-model="token">
-              </md-input-container>
-              <md-button type="submit" class="md-raised">next</md-button>
-            </form>
-            <form ng-submit="submitProject()" ng-if="projects">
-              <md-input-container>
-                <label>Select Project</label>
-                <md-select ng-model="target">
-                  <md-option ng-value="project" ng-repeat="project in projects">
-                    {{project.project_name}}
-                  </md-option>
-                </md-select>
-              </md-input-container>
-              <md-button type="submit" class="md-raised">next</md-button>
-            </form>
-          </div>
-        </md-content>
-
-      </section>
-
-    </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.12/lovefield.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lovefield/2.1.12/lovefield.js"></script>
     <script src="scripts/app.min.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

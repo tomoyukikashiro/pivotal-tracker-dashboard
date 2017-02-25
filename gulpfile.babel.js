@@ -72,6 +72,16 @@ gulp.task('copy', () =>
     .pipe($.size({title: 'copy'}))
 );
 
+// Copy all templates
+gulp.task('templates', () =>
+  gulp.src([
+    'app/templates/*'
+  ], {
+    dot: false
+  }).pipe(gulp.dest('dist/templates/'))
+    .pipe($.size({title: 'templates'}))
+);
+
 // Compile and automatically prefix stylesheets
 gulp.task('styles', () => {
   const AUTOPREFIXER_BROWSERS = [
@@ -194,7 +204,7 @@ gulp.task('vendors', ['scripts:vendor', 'styles:vendor']);
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['lint', 'html', 'scripts', 'images', 'copy'],
+    ['lint', 'html', 'scripts', 'images', 'copy', 'templates'],
     'generate-service-worker',
     cb
   )
