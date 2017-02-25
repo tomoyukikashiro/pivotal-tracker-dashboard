@@ -21,6 +21,10 @@ export default class DbBase {
       });
   }
 
+  select() {
+    return this.$q.all([this.getDb(), this.getTable()]);
+  }
+
   insertOrReplace(data) {
     return this.getTable()
       .then(table => {
