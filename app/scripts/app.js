@@ -1,15 +1,19 @@
 import router from './router';
+import user from './user';
 import constants from './constants';
 import pivotalTracker from './pivotaltracker';
 import localDb from './localdb';
+import recipes from './recipe';
 
 angular
   .module('app', [
     'ngRoute',
     'ngMaterial',
     'angularMoment',
+    user.name,
     pivotalTracker.name,
-    localDb.name
+    localDb.name,
+    recipes.name
   ])
   .constant('appConstants', constants)
   .config((appConstants, LovefieldProvider) => {
