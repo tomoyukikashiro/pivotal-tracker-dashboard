@@ -12,7 +12,9 @@ export default function router($locationProvider, $routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/home.html',
-      controller: function(me, $location, ptProjectApiService, ptProjectDbService, ptIterationApiService, ptIterationDbService, ptStoryApiService, ptStoryDbService, ptUserApiService, ptUserDbService) {
+      controller: function(me, $location, ptProjectApiService, ptProjectDbService,
+        ptIterationApiService, ptIterationDbService, ptStoryApiService, ptStoryDbService,
+        ptUserApiService, ptUserDbService, ptStoryTransitionApiService, ptStoryTransitionDbService) {
         'ngInject';
         if (me) {
           return $location.path('/dashboard');
@@ -22,7 +24,6 @@ export default function router($locationProvider, $routeProvider) {
           ptProjectApiService.get(user.api_token)
             .then(projects => {
               ptProjectDbService.insertOrReplace(projects);
-              this.projects = projects;
               // for now..
               ptIterationApiService.getAll(user.api_token, projects[0])
                 .then(iterations => {
@@ -31,6 +32,10 @@ export default function router($locationProvider, $routeProvider) {
               ptStoryApiService.getAll(user.api_token, projects[0])
                 .then(stories => {
                   ptStoryDbService.insertOrReplace(stories);
+                });
+              ptStoryTransitionApiService.getAll(user.api_token, projects[0])
+                .then(transitions => {
+                  ptStoryTransitionDbService.insertOrReplace(transitions);
                 });
               ptUserApiService.get(user.api_token, {projectId: projects[0].id})
                 .then(users => {
@@ -76,6 +81,9 @@ export default function router($locationProvider, $routeProvider) {
         });
         iterationRecipeService.currentStoryCountGroupByStatus().then(statuses => {
           console.log(statuses);
+        });
+        iterationRecipeService.storyStateTransitions().then(transitions => {
+          console.log(transitions);
         });
       },
       controllerAs: '$dashboardCtrl',
