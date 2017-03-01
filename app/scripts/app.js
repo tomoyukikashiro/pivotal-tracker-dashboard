@@ -68,10 +68,11 @@ angular
   //     });
   //   };
   // })
-  .run((ptUserDbService, ptProjectDbService, ptStoryDbService, ptIterationDbService) => {
+  .run((ptUserDbService, ptProjectDbService, ptStoryDbService, ptStoryTransitionDbService, ptIterationDbService) => {
     'ngInject';
     ptUserDbService.createTable();
     ptProjectDbService.createTable();
     ptStoryDbService.createTable();
+    ptStoryTransitionDbService.createTable();
     ptIterationDbService.createTable();
   });
