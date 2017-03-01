@@ -6,4 +6,13 @@ export default class PtProjectDbService extends DbBase {
     'ngInject';
     super(moment, $q, Lovefield, 'project', PT_PROJECT_SERVICE_SCHEMA);
   }
+
+  getCurrentIterationNumber() {
+    return this.select().then(results => {
+      let [db, table] = results;
+      return db.select().from(table).where(table.id.eq(1910553)).exec().then(result => {
+        return result[0].current_iteration_number;
+      });
+    });
+  }
 }

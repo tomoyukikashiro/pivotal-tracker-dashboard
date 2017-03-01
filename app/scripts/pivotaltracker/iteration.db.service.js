@@ -7,24 +7,17 @@ export default class PtIterationDbService extends DbBase {
     super(moment, $q, Lovefield, 'iteration', PT_ITERATION_SERVICE_SCHEMA);
   }
 
-  getCurrent() {
-    return this.select()
-      .then(results => {
-        let [db, table] = results;
-        return db
-          .select(table.num)
-          .from(table)
-          .orderBy(table.start, lf.Order.DESC)
-          .limit(1)
-          .exec()
-          .then(results => {
-            return results[0];
-          });
+  getIteration(iterationNumber) {
+    return this.select().then(results => {
+      let [db, table] = results;
+      return db.select().from(table).where(table.number.eq(iterationNumber)).exec().then(iterations => {
+        return iterations[0];
       });
+    });
   }
 
-  getStoryIdsInCurrent() {
-    return this.getCurrent().then(iteration => {
+  getStoryIdsInCurrent(iterationNumber) {
+    return this.getIteration(iterationNumber).then(iteration => {
       return iteration.story_ids;
     });
   }
