@@ -1,2 +1,16 @@
-<h1>home</h1>
-<p><a href="/dashboard/">dashboard</a></p>
+<div ng-if="!$homeCtrl.user">
+  <login-form on-success="$homeCtrl.onSuccessLogin(user)"></login-form>
+</div>
+<div ng-if="$homeCtrl.user && !$homeCtrl.projects">
+  <md-progress-circular></md-progress-circular>
+</div>
+<div ng-if="$homeCtrl.user && $homeCtrl.projects">
+  <md-input-container>
+    <label>Select Project</label>
+    <md-select ng-model="$homeCtrl.targetProject">
+      <md-option ng-value="project" ng-repeat="project in $homeCtrl.projects">
+        {{project.name}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+</div>
