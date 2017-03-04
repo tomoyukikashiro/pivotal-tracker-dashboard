@@ -1,7 +1,55 @@
-<form layout-xs="column" layout-gt-xs="row" ng-submit="$ctrl.submit($ctrl.apiToken)">
-  <md-input-container>
-    <label>API TOKEN</label>
-    <input ng-model="$ctrl.apiToken">
-  </md-input-container>
-  <md-button type="submit" class="md-raised">submit</md-button>
-</form>
+<div>
+ <!--input token -->
+ <md-card ng-if="!loginFormCtrl.projects">
+   <img ng-src="https://dummyimage.com/300x200/000/fff.jpg" class="md-card-image" alt="">
+   <md-card-title>
+     <md-card-title-text><span class="md-headline">Input API Token</span></md-card-title-text>
+   </md-card-title>
+   <form ng-submit="loginFormCtrl.submitToken(loginFormCtrl.apiToken)">
+     <md-card-content class="md-padding">
+       <ul>
+         <li>Open <a href="https://www.pivotaltracker.com/profile" target="_blank">Pivotal Tracker Profile page</a></li>
+         <li>Copy <strong>API TOKEN</strong></li>
+         <li>Paste it into below input field</li>
+       </ul>
+       <md-input-container md-no-float class="md-block">
+         <label>API Token</label>
+         <input ng-model="loginFormCtrl.apiToken" type="text" required>
+       </md-input-container>
+     </md-card-content>
+     <md-card-actions layout="row" layout-align="end center">
+       <md-button type="submit" class="md-raised md-primary" ng-disabled="loginFormCtrl.isLoading">Next</md-button>
+     </md-card-actions>
+   </form>
+ </md-card>
+
+ <!-- select first project -->
+ <md-card ng-if="loginFormCtrl.projects && !loginFormCtrl.isLoading">
+   <img ng-src="https://dummyimage.com/300x200/000/fff.jpg" class="md-card-image" alt="">
+   <md-card-title>
+     <md-card-title-text><span class="md-headline">Select Project</span></md-card-title-text>
+   </md-card-title>
+   <form ng-submit="loginFormCtrl.submitProject(loginFormCtrl.apiToken, loginFormCtrl.projectId)">
+     <md-card-content class="md-padding">
+       <label>Select Project</label>
+       <md-select ng-model="loginFormCtrl.projectId">
+         <md-option ng-value="project.id" ng-repeat="project in loginFormCtrl.projects">
+           {{project.name}}
+         </md-option>
+       </md-select>
+     </md-card-content>
+     <md-card-actions layout="row" layout-align="end center">
+       <md-button type="submit" class="md-raised md-primary" ng-disabled="loginFormCtrl.isLoading">Import Data</md-button>
+     </md-card-actions>
+   </form>
+ </md-card>
+
+ <!-- loading -->
+ <md-card ng-if="loginFormCtrl.projects && loginFormCtrl.isLoading">
+   <md-card-content layout="row" layout-align="center center">
+    <md-progress-circular class="md-accent" md-diameter="40"></md-progress-circular>
+   </md-card-content>
+ </md-card>
+</div>
+
+
