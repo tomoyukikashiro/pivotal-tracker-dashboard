@@ -39,13 +39,13 @@ export class PtIterationApiService extends ApiBase {
     return this.$resource.get(param).$promise;
   }
 
-  getAll(token, project, iterations) {
+  getAll(token, projectId, iterations) {
     iterations = iterations || [];
-    return this.get(token, {projectId: project.id, limit: 100, offset: iterations.length})
+    return this.get(token, {projectId: projectId, limit: 100, offset: iterations.length})
       .then(_iteration => {
         iterations = iterations.concat(_iteration);
-        if (iterations.length < project.current_iteration_number) {
-          return this.getAll(token, project, iterations);
+        if (_iteration.length !== 0) {
+          return this.getAll(token, projectId, iterations);
         }
         return iterations;
       });

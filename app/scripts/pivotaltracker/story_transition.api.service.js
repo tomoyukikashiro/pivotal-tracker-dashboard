@@ -26,13 +26,13 @@ export class PtStoryTransitionApiService extends ApiBase {
     return this.$resource.get(param).$promise;
   }
 
-  getAll(token, project, transitions) {
+  getAll(token, projectId, transitions) {
     transitions = transitions || [];
-    return this.get(token, {projectId: project.id, limit: 100, offset: transitions.length})
+    return this.get(token, {projectId: projectId, limit: 100, offset: transitions.length})
       .then(_transitions => {
         transitions = transitions.concat(_transitions);
         if (_transitions.length !== 0) {
-          return this.getAll(token, project, transitions);
+          return this.getAll(token, projectId, transitions);
         }
         return transitions;
       });
