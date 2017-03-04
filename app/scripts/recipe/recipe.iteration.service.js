@@ -70,15 +70,11 @@ export default class IterationRecipeService {
   storyStateTransitions() {
     return this.current().then(iteration => {
       return this.storyTransitionDbService.select().then(results => {
-        console.log('iteration.start : ' + iteration.start);
-        console.log('iteration.finish : ' + iteration.finish);
-        console.log('-------------------');
         let [db, table] = results;
         let promises = [];
         let startDay = this.moment(iteration.start);
         let days = [];
-        while(startDay.format('dddd') !== 'Sunday' && startDay.format('dddd') !== 'Saturday') {
-          console.log(startDay.toDate());
+        while (startDay.format('dddd') !== 'Sunday' && startDay.format('dddd') !== 'Saturday') {
           days.push(startDay.clone());
           promises.push(
             db.select(table.state, lf.fn.count(table.story_id))
@@ -91,7 +87,6 @@ export default class IterationRecipeService {
         return this.$q.all(promises).then(results => {
           let iterations = [];
           results.forEach((data, i) => {
-            console.log(data, i);
             iterations.push({date: days[i], data: data});
           });
           return iterations;

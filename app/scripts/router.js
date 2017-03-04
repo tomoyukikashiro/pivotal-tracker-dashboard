@@ -12,46 +12,21 @@ export default function router($locationProvider, $routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'templates/home.html',
-      controller: function(me, $location, ptProjectApiService, ptProjectDbService,
-        ptIterationApiService, ptIterationDbService, ptStoryApiService, ptStoryDbService,
-        ptUserApiService, ptUserDbService, ptStoryTransitionApiService, ptStoryTransitionDbService) {
+      controller: (me, $scope, $location) => {
         'ngInject';
         if (me) {
-          return $location.path('/dashboard');
+          goToDashboard();
         }
-        this.onSuccessLogin = function(user) {
-          this.user = user;
-          ptProjectApiService.get(user.api_token)
-            .then(projects => {
-              ptProjectDbService.insertOrReplace(projects);
-              // for now..
-              ptIterationApiService.getAll(user.api_token, projects[0])
-                .then(iterations => {
-                  ptIterationDbService.insertOrReplace(iterations);
-                });
-              ptStoryApiService.getAll(user.api_token, projects[0])
-                .then(stories => {
-                  ptStoryDbService.insertOrReplace(stories);
-                });
-              ptStoryTransitionApiService.getAll(user.api_token, projects[0])
-                .then(transitions => {
-                  ptStoryTransitionDbService.insertOrReplace(transitions);
-                });
-              ptUserApiService.get(user.api_token, {projectId: projects[0].id})
-                .then(users => {
-                  let meIndex;
-                  users.forEach((user, i) => {
-                    if (this.user.id === user.id) {
-                      meIndex = i;
-                    }
-                  });
-                  if (meIndex) {
-                    users.splice(meIndex, 1);
-                  }
-                  ptUserDbService.insertOrReplace(users);
-                });
-            });
-        };
+        $scope.$on('loginform.success', (e, projectId) => {
+          goToDashboard(projectId);
+        });
+        $scope.$on('loginform.error', () => {
+          // TODO loginform error handling
+        });
+
+        function goToDashboard(projectId) {
+          $location.path('/dashboard').search('project', projectId);
+        }
       },
       controllerAs: '$homeCtrl',
       resolve: cmnResolves
