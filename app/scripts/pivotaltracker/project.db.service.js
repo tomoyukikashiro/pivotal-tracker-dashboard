@@ -15,4 +15,20 @@ export default class PtProjectDbService extends DbBase {
       });
     });
   }
+
+  get(projectId) {
+    return this.select().then(results => {
+      let [db, table] = results;
+      return db.select().from(table).where(table.id.eq(projectId)).exec().then(projects => {
+        return projects[0];
+      });
+    });
+  }
+
+  getAll() {
+    return this.select().then(results => {
+      let [db, table] = results;
+      return db.select().from(table).exec();
+    });
+  }
 }

@@ -4,16 +4,19 @@ import constants from './constants';
 import pivotalTracker from './pivotaltracker';
 import localDb from './localdb';
 import recipes from './recipe';
+import dashboardViews from './views';
 
 angular
   .module('app', [
     'ngRoute',
     'ngMaterial',
     'angularMoment',
+    'chart.js',
     user.name,
     pivotalTracker.name,
     localDb.name,
-    recipes.name
+    recipes.name,
+    dashboardViews.name
   ])
   .constant('appConstants', constants)
   .config((appConstants, LovefieldProvider) => {

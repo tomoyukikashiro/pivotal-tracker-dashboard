@@ -1,21 +1,13 @@
-
-let cmnResolves = {
-  me: function(ptUserDbService) {
-    'ngInject';
-    return ptUserDbService.getMe();
-  }
-};
-
 export default function router($locationProvider, $routeProvider) {
   'ngInject';
   $locationProvider.html5Mode(true);
   $routeProvider
     .when('/', {
       templateUrl: 'templates/home.html',
-      controller: (me, $scope, $location) => {
+      controller: (me, project, $scope, $location) => {
         'ngInject';
         if (me) {
-          goToDashboard();
+          goToDashboard(project.id);
         }
         $scope.$on('loginform.success', (e, projectId) => {
           goToDashboard(projectId);
@@ -29,40 +21,50 @@ export default function router($locationProvider, $routeProvider) {
         }
       },
       controllerAs: '$homeCtrl',
-      resolve: cmnResolves
+      resolve: {
+        me: ptUserDbService => {
+          'ngInject';
+          return ptUserDbService.getMe();
+        },
+        project: ptProjectDbService => {
+          'ngInject';
+          return ptProjectDbService.getAll().then(projects => {
+            return projects[0];
+          });
+        }
+      }
     })
     .when('/dashboard/', {
       templateUrl: 'templates/dashboard.html',
-      controller: function(me, $location, iterationRecipeService) {
+      controller: function(me, projects, project, $location) {
         'ngInject';
         if (!me) {
           $location.path('/');
         }
-        // current iteration number
-        iterationRecipeService.currentNum().then(number => {
-          console.log(`current iteration number: ${number}`);
-        });
-        iterationRecipeService.currentRemainingDays().then(days => {
-          console.log(`current remaining days: ${days}`);
-        });
-        iterationRecipeService.currentVelocity().then(velocity => {
-          console.log(`current velocity: ${velocity}`);
-        });
-        iterationRecipeService.currentTeamStrength().then(strength => {
-          console.log(`current team strength: ${strength}`);
-        });
-        iterationRecipeService.currentStoryCountGroupByType().then(types => {
-          console.log(types);
-        });
-        iterationRecipeService.currentStoryCountGroupByStatus().then(statuses => {
-          console.log(statuses);
-        });
-        iterationRecipeService.storyStateTransitions().then(transitions => {
-          console.log(transitions);
-        });
+        this.project = project;
+        this.projects = projects;
+        this.searchParams = $location.search();
+
+        this.isScopeIteration = this.searchParams.scope === 'iteration';
+        this.isScopeTeam = this.searchParams.scope === 'team';
+        this.isViewStats = this.searchParams.view === 'stats';
+        this.isViewKanban = this.searchParams.view === 'kanban';
       },
       controllerAs: '$dashboardCtrl',
-      resolve: cmnResolves
+      resolve: {
+        me: ptUserDbService => {
+          'ngInject';
+          return ptUserDbService.getMe();
+        },
+        projects: ptProjectDbService => {
+          'ngInject';
+          return ptProjectDbService.getAll();
+        },
+        project: ($location, ptProjectDbService) => {
+          'ngInject';
+          return ptProjectDbService.get($location.search().project);
+        }
+      }
     })
     .otherwise({redirectTo: '/'});
 }

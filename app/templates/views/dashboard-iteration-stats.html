@@ -1,0 +1,20 @@
+<div layout="column">
+  <div layout="row">
+    <one-metric-view flex="25" data-title="iteration number" data-data="$ctrl.metrics.itertionNumber"></one-metric-view>
+    <one-metric-view flex="25" data-title="remaining days" data-data="$ctrl.metrics.remainingDays"></one-metric-view>
+    <one-metric-view flex="25" data-title="velocity" data-data="$ctrl.metrics.velocity"></one-metric-view>
+    <one-metric-view flex="25" data-title="team strength" data-data="$ctrl.metrics.teamStrength"></one-metric-view>
+  </div>
+  <div layout="row">
+    <chart-view flex="33" data-title="story types chart" data-data="$ctrl.metrics.storyTypes.data" data-labels="$ctrl.metrics.storyTypes.labels"></chart-view>
+    <chart-view flex="33" data-title="story status chart" data-data="$ctrl.metrics.storyStatus.data" data-labels="$ctrl.metrics.storyStatus.labels"></chart-view>
+    <one-metric-view flex="33" layout="column" data-title="accepted ratio" data-data="$ctrl.metrics.acceptedRatio"></one-metric-view>
+  </div>
+  <div layout="row">
+    <bar-chart-view flex
+      data-title="story status transition"
+      data-labels="$ctrl.metrics.storyStateTransitions.labels"
+      data-data="$ctrl.metrics.storyStateTransitions.data"
+      data-series="$ctrl.metrics.storyStateTransitions.series"></bar-chart-view>
+  </div>
+</div>

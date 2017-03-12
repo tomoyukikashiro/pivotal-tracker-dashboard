@@ -1,0 +1,15 @@
+<md-card>
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">{{$ctrl.title}}</span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-content>
+    <canvas class="chart chart chart-bar"
+      chart-data="$ctrl.data"
+      chart-labels="$ctrl.labels"
+      chart-series="$ctrl.series"
+      chart-options="$ctrl.options"
+      ></canvas>
+  </md-card-content>
+</md-card>
